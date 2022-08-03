@@ -35,7 +35,30 @@ describe("Our first suite", () => {
     cy.get('[data-cy="imputEmail1"]');
   });
 
-  it("second test", () => {});
+  it("second test", () => {
+    cy.visit("/");
+    cy.contains("Forms").click();
+    cy.contains("Form Layouts").click();
+
+    cy.get('[data-cy="signInButton"]');
+
+    cy.contains("Sign in");
+
+    cy.contains('[status="warning"]', "Sign in");
+
+    //travel through the DOM
+    //find method is used to find the child element from the parents element
+    //parent method is used to find the parent element
+    cy.get("#inputEmail3")
+      .parents("form")
+      .find("button")
+      .should("contain", "Sign in")
+      .parents("form")
+      .find("nb-checkbox")
+      .click();
+
+    cy.contains("nb-card", "Horizontal form").find('[type="email"]');
+  });
 
   it("third test", () => {});
 });
